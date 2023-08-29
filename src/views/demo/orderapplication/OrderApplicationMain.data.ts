@@ -4,7 +4,6 @@ import { useUserStore } from '/@/store/modules/user';
 import { rules} from '/@/utils/helper/validator';
 import { render } from '/@/utils/common/renderUtils';
 import {JVxeTypes,JVxeColumn} from '/@/components/jeecg/JVxeTable/types'
-import dayjs from "dayjs";
 //列表数据
 export const columns: BasicColumn[] = [
    {
@@ -30,12 +29,12 @@ export const columns: BasicColumn[] = [
    {
     title: '部门主管',
     align:"center",
-    dataIndex: 'managerName_dictText'
+    dataIndex: 'managerUsername_dictText'
    },
    {
     title: '分管领导',
     align:"center",
-    dataIndex: 'leaderName_dictText'
+    dataIndex: 'leaderUsername_dictText'
    },
    {
     title: '申请理由',
@@ -102,7 +101,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     label: '部门主管',
-    field: 'managerName',
+    field: 'managerUsername',
     component: 'JSelectUserByDept',
     componentProps:{
         labelKey:'realname',
@@ -115,7 +114,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     label: '分管领导',
-    field: 'leaderName',
+    field: 'leaderUsername',
     component: 'JSelectUserByDept',
     componentProps:{
         labelKey:'realname',
