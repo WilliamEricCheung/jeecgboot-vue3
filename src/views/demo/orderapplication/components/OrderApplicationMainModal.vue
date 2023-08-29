@@ -89,9 +89,7 @@
     //表单提交事件
     async function requestAddOrEdit(values) {
         try {
-            console.log("values: " + values.createTime);
             values.updateTime = values.createTime;
-            console.log("update values: " + values.updateTime);
             setModalProps({confirmLoading: true});
             //提交表单
             await saveOrUpdate(values, isUpdate.value);
