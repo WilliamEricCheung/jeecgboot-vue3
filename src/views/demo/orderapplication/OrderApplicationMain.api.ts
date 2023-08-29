@@ -7,6 +7,8 @@ enum Api {
   list = '/orderapplication/orderApplicationMain/list',
   save='/orderapplication/orderApplicationMain/add',
   edit='/orderapplication/orderApplicationMain/edit',
+  submitOne = '/orderapplication/orderApplicationMain/submit',
+  revokeOne = '/orderapplication/orderApplicationMain/revoke',
   deleteOne = '/orderapplication/orderApplicationMain/delete',
   deleteBatch = '/orderapplication/orderApplicationMain/deleteBatch',
   importExcel = '/orderapplication/orderApplicationMain/importExcel',
@@ -34,6 +36,24 @@ export const orderApplicationListList = Api.orderApplicationListList;
  */
 export const list = (params) =>
   defHttp.get({url: Api.list, params});
+
+/**
+ * 提交单个
+ */
+export const submitOne = (params,handleSuccess) => {
+  return defHttp.post({url: Api.submitOne, params}, {joinParamsToUrl: true}).then(() => {
+    handleSuccess();
+  });
+}
+
+/**
+ * 撤回单个
+ */
+export const revokeOne = (params,handleSuccess) => {
+  return defHttp.post({url: Api.revokeOne, params}, {joinParamsToUrl: true}).then(() => {
+    handleSuccess();
+  });
+}
 
 /**
  * 删除单个

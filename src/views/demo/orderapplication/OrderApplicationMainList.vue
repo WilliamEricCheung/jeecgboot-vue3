@@ -50,7 +50,7 @@
   import {useModal} from '/@/components/Modal';
   import OrderApplicationMainModal from './components/OrderApplicationMainModal.vue'
   import {columns, searchFormSchema} from './OrderApplicationMain.data';
-  import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
+  import {list, submitOne, revokeOne, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
   import {downloadFile} from '/@/utils/common/renderUtils';
   const checkedKeys = ref<Array<string | number>>([]);
   //注册model
@@ -118,6 +118,21 @@
        showFooter: false,
      });
    }
+
+   /**
+    * 提交申请事件
+    */
+   async function handleSubmit(record) {
+    await submitOne({id: record.id}, handleSuccess);
+   }
+
+   /**
+    * 撤回申请事件
+    */
+  async function handleRevoke(record) {
+    await revokeOne({id: record.id}, handleSuccess);
+   }
+
    /**
     * 删除事件
     */
@@ -142,8 +157,11 @@
   function getTableAction(record){
        return [
          {
-           label: '编辑',
-           onClick: handleEdit.bind(null, record),
+           label: '提交',
+           popConfirm: {
+             title: '是否确认提交，提交后无法编辑',
+             confirm: handleSubmit.bind(null, record)
+           }
          }
        ]
    }
@@ -157,7 +175,18 @@
       {
         label: '详情',
         onClick: handleDetail.bind(null, record),
-      }, {
+      },
+      {
+        label: '编辑',
+        onClick: handleEdit.bind(null, record),
+      },
+      {
+        label: '撤回',
+        popConfirm: {
+          title: '是否确认撤回申请',
+          confirm: handleRevoke.bind(null, record),
+        }
+      },{
         label: '删除',
         popConfirm: {
           title: '是否确认删除',
