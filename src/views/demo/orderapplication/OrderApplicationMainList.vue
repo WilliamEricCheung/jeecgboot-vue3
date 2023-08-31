@@ -173,7 +173,8 @@
              title: '是否确认提交，提交后无法编辑',
              confirm: handleSubmit.bind(null, record)
            },
-           auth: 'orderapplication:order_application_main:submit'
+           auth: 'orderapplication:order_application_main:submit',
+           disabled: !(record.applicationStatus == 'applicant_not_submitted' || record.applicationStatus == 'applicant_revoked')
          },
          {
            label: '审核',

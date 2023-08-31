@@ -9,7 +9,8 @@ export const columns: BasicColumn[] = [
   {
     title: '申请部门',
     align: "center",
-    dataIndex: 'sysOrgCode'
+    dataIndex: 'sysOrgCode',
+    width: 100
   },
   {
     title: '申请时间',
@@ -19,7 +20,8 @@ export const columns: BasicColumn[] = [
   {
     title: '经办人',
     align: "center",
-    dataIndex: 'createBy'
+    dataIndex: 'createBy',
+    width: 100
   },
   {
     title: '更新时间',
@@ -29,12 +31,14 @@ export const columns: BasicColumn[] = [
   {
     title: '部门主管',
     align: "center",
-    dataIndex: 'managerUsername_dictText'
+    dataIndex: 'managerUsername_dictText',
+    width: 100
   },
   {
     title: '分管领导',
     align: "center",
-    dataIndex: 'leaderUsername_dictText'
+    dataIndex: 'leaderUsername_dictText',
+    width: 100
   },
   {
     title: '申请理由',
