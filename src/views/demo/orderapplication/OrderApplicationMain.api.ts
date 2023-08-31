@@ -9,6 +9,7 @@ enum Api {
   edit='/orderapplication/orderApplicationMain/edit',
   submitOne = '/orderapplication/orderApplicationMain/submit',
   revokeOne = '/orderapplication/orderApplicationMain/revoke',
+  revokeBatch = '/orderapplication/orderApplicationMain/revokeBatch',
   deleteOne = '/orderapplication/orderApplicationMain/delete',
   deleteBatch = '/orderapplication/orderApplicationMain/deleteBatch',
   importExcel = '/orderapplication/orderApplicationMain/importExcel',
@@ -52,6 +53,24 @@ export const submitOne = (params,handleSuccess) => {
 export const revokeOne = (params,handleSuccess) => {
   return defHttp.post({url: Api.revokeOne, params}, {joinParamsToUrl: true}).then(() => {
     handleSuccess();
+  });
+}
+/**
+ * 批量撤回
+ * @param params
+ */
+export const batchRevoke = (params, handleSuccess) => {
+  createConfirm({
+    iconType: 'warning',
+    title: '确认撤回',
+    content: '是否撤回选中申请',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: () => {
+      return defHttp.post({url: Api.revokeBatch, data: params}, {joinParamsToUrl: true}).then(() => {
+        handleSuccess();
+      });
+    }
   });
 }
 

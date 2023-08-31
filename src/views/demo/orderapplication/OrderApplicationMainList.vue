@@ -10,6 +10,10 @@
           <a-dropdown v-if="selectedRowKeys.length > 0">
               <template #overlay>
                 <a-menu>
+                  <a-menu-item key="0" @click="batchHandleRevoke">
+                    <Icon icon="ant-design:disconnect-outlined"></Icon>
+                    撤回
+                  </a-menu-item>
                   <a-menu-item key="1" @click="batchHandleDelete">
                     <Icon icon="ant-design:delete-outlined"></Icon>
                     删除
@@ -50,7 +54,7 @@
   import {useModal} from '/@/components/Modal';
   import OrderApplicationMainModal from './components/OrderApplicationMainModal.vue'
   import {columns, searchFormSchema} from './OrderApplicationMain.data';
-  import {list, submitOne, revokeOne, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
+  import {list, submitOne, revokeOne, batchRevoke, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
   import {downloadFile} from '/@/utils/common/renderUtils';
   const checkedKeys = ref<Array<string | number>>([]);
   //注册model
@@ -133,6 +137,13 @@
     await revokeOne({id: record.id}, handleSuccess);
    }
 
+  /**
+   * 批量撤回申请时间
+   */
+  async function batchHandleRevoke() {
+    await batchRevoke({ids: selectedRowKeys.value},handleSuccess);
+  }
+
    /**
     * 删除事件
     */
@@ -161,7 +172,14 @@
            popConfirm: {
              title: '是否确认提交，提交后无法编辑',
              confirm: handleSubmit.bind(null, record)
-           }
+           },
+           // TODO 权限
+           auth: 'order_application_main:submit'
+         },
+         {
+           label: '审核',
+           // TODO 审核
+           onClick: handleEdit.bind(null, record)
          }
        ]
    }
