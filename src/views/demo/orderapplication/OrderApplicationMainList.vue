@@ -173,13 +173,13 @@
              title: '是否确认提交，提交后无法编辑',
              confirm: handleSubmit.bind(null, record)
            },
-           // TODO 权限
-           auth: 'order_application_main:submit'
+           auth: 'orderapplication:order_application_main:submit'
          },
          {
            label: '审核',
            // TODO 审核
-           onClick: handleEdit.bind(null, record)
+           onClick: handleEdit.bind(null, record),
+           auth: 'orderapplication:order_application_main:audit'
          }
        ]
    }
