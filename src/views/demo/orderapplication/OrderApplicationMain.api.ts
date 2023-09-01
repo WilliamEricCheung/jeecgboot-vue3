@@ -7,6 +7,7 @@ enum Api {
   list = '/orderapplication/orderApplicationMain/list',
   save='/orderapplication/orderApplicationMain/add',
   edit='/orderapplication/orderApplicationMain/edit',
+  printOne = '/orderapplication/orderApplicationMain/print',
   submitOne = '/orderapplication/orderApplicationMain/submit',
   revokeOne = '/orderapplication/orderApplicationMain/revoke',
   revokeBatch = '/orderapplication/orderApplicationMain/revokeBatch',
@@ -37,6 +38,15 @@ export const orderApplicationListList = Api.orderApplicationListList;
  */
 export const list = (params) =>
   defHttp.get({url: Api.list, params});
+
+/**
+ * 打印单个
+ */
+export const printOne = (params,handleSuccess) => {
+  return defHttp.post({url: Api.printOne, params}, {joinParamsToUrl: true}).then(() => {
+    handleSuccess();
+  });
+}
 
 /**
  * 提交单个

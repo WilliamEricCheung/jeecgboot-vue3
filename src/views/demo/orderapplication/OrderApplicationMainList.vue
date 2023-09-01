@@ -54,7 +54,7 @@
   import {useModal} from '/@/components/Modal';
   import OrderApplicationMainModal from './components/OrderApplicationMainModal.vue'
   import {columns, searchFormSchema} from './OrderApplicationMain.data';
-  import {list, submitOne, revokeOne, batchRevoke, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
+  import {list, printOne, submitOne, revokeOne, batchRevoke, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
   import {downloadFile} from '/@/utils/common/renderUtils';
   const checkedKeys = ref<Array<string | number>>([]);
   //注册model
@@ -114,7 +114,7 @@
    }
    /**
     * 详情
-   */
+    */
   function handleDetail(record: Recordable) {
      openModal(true, {
        record,
@@ -122,6 +122,13 @@
        showFooter: false,
      });
    }
+
+  /**
+   * 打印申请事件
+   */
+  async function handlePrint(record) {
+    await printOne({id: record.id}, handleSuccess);
+  }
 
    /**
     * 提交申请事件
@@ -196,21 +203,29 @@
         onClick: handleDetail.bind(null, record),
       },
       {
+        label: '打印',
+        onClick: handlePrint.bind(null, record),
+        auth: 'orderapplication:order_application_main:print'
+      },
+      {
         label: '编辑',
         onClick: handleEdit.bind(null, record),
+        disabled: !(record.applicationStatus == 'applicant_not_submitted' || record.applicationStatus == 'applicant_revoked')
       },
       {
         label: '撤回',
         popConfirm: {
           title: '是否确认撤回申请',
           confirm: handleRevoke.bind(null, record),
-        }
+        },
+        disabled: record.applicationStatus == 'applicant_revoked'
       },{
         label: '删除',
         popConfirm: {
           title: '是否确认删除',
           confirm: handleDelete.bind(null, record),
-        }
+        },
+        disabled: !(record.applicationStatus == 'applicant_not_submitted' || record.applicationStatus == 'applicant_revoked')
       }
     ]
   }
