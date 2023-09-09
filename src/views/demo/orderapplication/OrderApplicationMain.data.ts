@@ -201,6 +201,17 @@ export const orderApplicationListColumns: JVxeColumn[] = [
     ],
   },
   {
+    title: '库存',
+    key: 'storage',
+    type: JVxeTypes.inputNumber,
+    width: "200px",
+    placeholder: '请输入${title}',
+    defaultValue: '',
+    validateRules: [
+      {required: true, message: '${title}不能为空'},
+    ],
+  },
+  {
     title: '数量',
     key: 'number',
     type: JVxeTypes.inputNumber,
