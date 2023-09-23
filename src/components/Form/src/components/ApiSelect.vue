@@ -1,5 +1,5 @@
 <template>
-  <Select @dropdownVisibleChange="handleFetch" v-bind="$attrs" @change="handleChange" :options="getOptions" v-model:value="state">
+  <Select @dropdownVisibleChange="handleFetch" v-bind="attrs_" @change="handleChange" :options="getOptions" v-model:value="state" :filterOption="filterOption">
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
@@ -63,7 +63,17 @@
 
       // Embedded in the form, just use the hook binding to perform form verification
       const [state, setState] = useRuleFormItem(props, 'value', 'change', emitData);
-
+      // update-begin--author:liaozhiyang---date:20230830---for：【QQYUN-6308】解决警告
+      let vModalValue: any;
+      const attrs_ = computed(() => {
+        let obj: any = unref(attrs);
+        if (obj && obj['onUpdate:value']) {
+          vModalValue = obj['onUpdate:value'];
+          delete obj['onUpdate:value'];
+        }
+        return obj;
+      });
+      // update-begin--author:liaozhiyang---date:20230830---for：【QQYUN-6308】解决警告
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
         return unref(options).reduce((prev, next: Recordable) => {
@@ -140,10 +150,21 @@
       }
 
       function handleChange(_, ...args) {
+        vModalValue && vModalValue(_);
         emitData.value = args;
       }
 
-      return { state, attrs, getOptions, loading, t, handleFetch, handleChange };
+      // update-begin--author:liaozhiyang---date:20230904---for：【issues/5305】无法按照预期进行搜索
+      const filterOption = (inputValue, option) => {
+        if (typeof option['label'] === 'string') {
+          return option['label'].toLowerCase().indexOf(inputValue.toLowerCase()) != -1;
+        } else {
+          return true;
+        }
+      };
+      // update-begin--author:liaozhiyang---date:20230904---for：【issues/5305】无法按照预期进行搜索
+
+      return { state, attrs_, attrs, getOptions, loading, t, handleFetch, handleChange, filterOption };
     },
   });
 </script>
