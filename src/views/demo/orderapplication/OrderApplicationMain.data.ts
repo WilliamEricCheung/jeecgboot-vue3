@@ -75,7 +75,7 @@ export const searchFormSchema: FormSchema[] = [
 //表单数据
 export const formSchema: FormSchema[] = [
   {
-    label: '申请部门编码',
+    label: '部门编码',
     field: 'sysOrgCode',
     component: 'Input',
     defaultValue: useUserStore().getUserInfo.orgCode,
