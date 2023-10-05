@@ -2,8 +2,8 @@
 -- 如果你想更改到其他目录，请修改sql中component字段对应的值
 
 
-INSERT INTO sys_permission(id, parent_id, name, url, component, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_route, is_leaf, keep_alive, hidden, hide_tab, description, status, del_flag, rule_flag, create_by, create_time, update_by, update_time, internal_or_external) 
-VALUES ('2023082903286200130', NULL, '电商采购月度申请表', '/orderapplication/orderApplicationMainList', 'orderapplication/OrderApplicationMainList', NULL, NULL, 0, NULL, '1', 0.00, 0, NULL, 1, 0, 0, 0, 0, NULL, '1', 0, 0, 'admin', '2023-08-29 15:28:13', NULL, NULL, 0);
+INSERT INTO sys_permission(id, parent_id, name, url, component, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_route, is_leaf, keep_alive, hidden, hide_tab, description, status, del_flag, rule_flag, create_by, create_time, update_by, update_time, internal_or_external)
+VALUES ('2023082903286200130', NULL, '电商采购月度申请表', '/orderapplication/orderApplicationMainList', 'demo/orderapplication/OrderApplicationMainList', NULL, NULL, 0, NULL, '1', 0.00, 0, NULL, 1, 0, 0, 0, 0, NULL, '1', 0, 0, 'admin', '2023-08-29 15:28:13', NULL, NULL, 0);
 
 -- 权限控制sql
 -- 新增
