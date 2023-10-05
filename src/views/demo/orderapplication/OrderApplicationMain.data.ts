@@ -9,7 +9,7 @@ export const columns: BasicColumn[] = [
   {
     title: '申请部门',
     align: "center",
-    dataIndex: 'sysOrgCode',
+    dataIndex: 'departmentName',
     width: 100
   },
   {
@@ -75,7 +75,7 @@ export const searchFormSchema: FormSchema[] = [
 //表单数据
 export const formSchema: FormSchema[] = [
   {
-    label: '申请部门',
+    label: '申请部门编码',
     field: 'sysOrgCode',
     component: 'Input',
     defaultValue: useUserStore().getUserInfo.orgCode,
