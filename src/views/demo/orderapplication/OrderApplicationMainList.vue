@@ -209,7 +209,8 @@
       {
         label: '打印',
         onClick: handlePrint.bind(null, record),
-        auth: 'orderapplication:order_application_main:print'
+        auth: 'orderapplication:order_application_main:print',
+        disabled: !(record.applicationStatus == 'leader_confirmed_all' || record.applicationStatus == 'leader_confirmed_part')
       },
       {
         label: '编辑',
