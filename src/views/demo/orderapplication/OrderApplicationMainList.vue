@@ -56,6 +56,7 @@
   import {columns, searchFormSchema} from './OrderApplicationMain.data';
   import {list, printOne, submitOne, revokeOne, batchRevoke, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
   import {downloadFile} from '/@/utils/common/renderUtils';
+  import {getToken} from "@/utils/auth";
   const checkedKeys = ref<Array<string | number>>([]);
   //注册model
   const [registerModal, {openModal}] = useModal();
@@ -127,7 +128,10 @@
    * 打印申请事件
    */
   async function handlePrint(record) {
-    await printOne({id: record.id}, handleSuccess);
+    // await printOne({id: record.id}, handleSuccess);
+    let token = getToken();
+    let url = `${window._CONFIG['domianURL']}/jmreport/view/857474803385208832?token=${token}&id=${record.id}`;
+    window.location.href = url
   }
 
    /**
