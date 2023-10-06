@@ -13,9 +13,9 @@
           :dataSource="orderApplicationListTable.dataSource"
           :height="340"
           :rowNumber="true"
-          :rowSelection="true"
+          :rowSelection="false"
           :disabled="formDisabled"
-          :toolbar="true"
+          :toolbar="false"
           />
       </a-tab-pane>
     </a-tabs>
@@ -29,7 +29,7 @@
     import { JVxeTable } from '/@/components/jeecg/JVxeTable'
     import { useJvxeMethod } from '/@/hooks/system/useJvxeMethods.ts'
     import {formSchema,orderApplicationListColumns} from '../OrderApplicationMainAudit.data';
-    import {saveOrUpdate,orderApplicationListList} from '../OrderApplicationMain.api';
+    import {audit, orderApplicationListList} from '../OrderApplicationMain.api';
     import { VALIDATE_FAILED } from '/@/utils/common/vxeUtils'
     // Emits声明
     const emit = defineEmits(['register','success']);
@@ -92,7 +92,8 @@
             values.updateTime = values.createTime;
             setModalProps({confirmLoading: true});
             //提交表单
-            await saveOrUpdate(values, isUpdate.value);
+            // await saveOrUpdate(values, isUpdate.value);
+            await audit(values);
             //关闭弹窗
             closeModal();
             //刷新列表

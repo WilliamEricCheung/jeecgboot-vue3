@@ -4,17 +4,17 @@
    <BasicTable @register="registerTable" :rowSelection="rowSelection">
      <!--插槽:table标题-->
       <template #tableTitle>
-          <a-button type="primary" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增</a-button>
-          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出</a-button>
-          <j-upload-button  type="primary" preIcon="ant-design:import-outlined" @click="onImportXls">导入</j-upload-button>
+          <a-button type="primary" @click="handleAdd" preIcon="ant-design:plus-outlined" v-if="hasPermission('orderapplication:order_application_main:add')"> 新增</a-button>
+          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="onExportXls" v-if="hasPermission('orderapplication:order_application_main:exportXls')"> 导出</a-button>
+          <j-upload-button  type="primary" preIcon="ant-design:import-outlined" @click="onImportXls" v-if="hasPermission('orderapplication:order_application_main:importExcel')">导入</j-upload-button>
           <a-dropdown v-if="selectedRowKeys.length > 0">
               <template #overlay>
                 <a-menu>
-                  <a-menu-item key="0" @click="batchHandleRevoke">
+                  <a-menu-item key="0" @click="batchHandleRevoke" v-if="hasPermission('orderapplication:order_application_main:revokeBatch')">
                     <Icon icon="ant-design:disconnect-outlined"></Icon>
                     撤回
                   </a-menu-item>
-                  <a-menu-item key="1" @click="batchHandleDelete">
+                  <a-menu-item key="1" @click="batchHandleDelete" v-if="hasPermission('orderapplication:order_application_main:deleteBatch')">
                     <Icon icon="ant-design:delete-outlined"></Icon>
                     删除
                   </a-menu-item>
@@ -49,6 +49,8 @@
 </template>
 
 <script lang="ts" name="orderapplication-orderApplicationMain" setup>
+  import { usePermission } from '/@/hooks/web/usePermission';
+  const { hasPermission, isDisabledAuth } = usePermission();
   import {ref, computed, unref} from 'vue';
   import {BasicTable, useTable, TableAction} from '/@/components/Table';
   import { useListPage } from '/@/hooks/system/useListPage'
@@ -227,6 +229,7 @@
       {
         label: '编辑',
         onClick: handleEdit.bind(null, record),
+        auth: 'orderapplication:order_application_main:edit',
         disabled: !(record.applicationStatus == 'applicant_not_submitted' || record.applicationStatus == 'applicant_revoked')
       },
       {
@@ -235,6 +238,8 @@
           title: '是否确认撤回申请',
           confirm: handleRevoke.bind(null, record),
         },
+        // 仅有申请人可以撤回
+        auth: 'orderapplication:order_application_main:revoke',
         disabled: record.applicationStatus == 'applicant_revoked'
       },{
         label: '删除',
@@ -242,6 +247,7 @@
           title: '是否确认删除',
           confirm: handleDelete.bind(null, record),
         },
+        auth: 'orderapplication:order_application_main:delete',
         disabled: !(record.applicationStatus == 'applicant_not_submitted' || record.applicationStatus == 'applicant_revoked')
       }
     ]

@@ -94,20 +94,25 @@ export const formSchema: FormSchema[] = [
 export const orderApplicationListColumns: JVxeColumn[] = [
   {
     title: '部门主管审批结果',
-    key: 'manager_opinion',
+    key: 'managerOpinion',
     type: JVxeTypes.select,
+    defaultValue: '未审批',
     width: "200px",
     // 下拉选项
     options: [
       { title: '同意', value: '1' },
       { title: '不同意', value: '0' },
     ],
+    validateRules: [
+      {required: true, message: '${title}不能为空'},
+    ],
     placeholder: '请选择',
   },
   {
     title: '分管领导审批结果',
-    key: 'leader_opinion',
+    key: 'leaderOpinion',
     type: JVxeTypes.select,
+    defaultValue: '未审批',
     width: "200px",
     // 下拉选项
     options: [
@@ -119,112 +124,122 @@ export const orderApplicationListColumns: JVxeColumn[] = [
   {
     title: '品名',
     key: 'materialName',
-    type: JVxeTypes.input,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '生产厂家或品牌',
     key: 'brandName',
-    type: JVxeTypes.input,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '规格及型号',
     key: 'specification',
-    type: JVxeTypes.input,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '单位',
     key: 'unit',
-    type: JVxeTypes.input,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '库存',
     key: 'storage',
-    type: JVxeTypes.inputNumber,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '数量',
     key: 'number',
-    type: JVxeTypes.inputNumber,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '单价',
     key: 'price',
-    type: JVxeTypes.inputNumber,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '总价',
     key: 'totalPrice',
-    type: JVxeTypes.inputNumber,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '用途及使用场所',
     key: 'purpose',
-    type: JVxeTypes.input,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
   {
     title: '电商平台物资编码',
     key: 'materialCode',
-    type: JVxeTypes.input,
+    type: JVxeTypes.normal,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    dynamicDisabled: true,
   },
 ]
 
