@@ -7,6 +7,7 @@ enum Api {
   list = '/orderapplication/orderApplicationMain/list',
   save='/orderapplication/orderApplicationMain/add',
   edit='/orderapplication/orderApplicationMain/edit',
+  audit='/orderapplication/orderApplicationMain/audit',
   printOne = '/orderapplication/orderApplicationMain/print',
   submitOne = '/orderapplication/orderApplicationMain/submit',
   revokeOne = '/orderapplication/orderApplicationMain/revoke',
@@ -117,4 +118,12 @@ export const batchDelete = (params, handleSuccess) => {
 export const saveOrUpdate = (params, isUpdate) => {
   let url = isUpdate ? Api.edit : Api.save;
   return defHttp.post({url: url, params});
+}
+
+/**
+ * 更新审核
+ * @param params
+ */
+export const audit = (params) => {
+  return defHttp.post({url: Api.audit, params});
 }
