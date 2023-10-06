@@ -44,6 +44,7 @@
     </BasicTable>
     <!-- 表单区域 -->
     <OrderApplicationMainModal @register="registerModal" @success="handleSuccess"></OrderApplicationMainModal>
+    <OrderApplicationMainModalAudit @register="registerModalAudit" @success="handleSuccess"></OrderApplicationMainModalAudit>
   </div>
 </template>
 
@@ -53,6 +54,7 @@
   import { useListPage } from '/@/hooks/system/useListPage'
   import {useModal} from '/@/components/Modal';
   import OrderApplicationMainModal from './components/OrderApplicationMainModal.vue'
+  import OrderApplicationMainModalAudit from './components/OrderApplicationMainModalAudit.vue'
   import {columns, searchFormSchema} from './OrderApplicationMain.data';
   import {list, printOne, submitOne, revokeOne, batchRevoke, deleteOne, batchDelete, getImportUrl,getExportUrl} from './OrderApplicationMain.api';
   import {downloadFile} from '/@/utils/common/renderUtils';
@@ -60,6 +62,7 @@
   const checkedKeys = ref<Array<string | number>>([]);
   //注册model
   const [registerModal, {openModal}] = useModal();
+  const [registerModalAudit, {openModal: openModalAudit}] = useModal();
    //注册table数据
   const { prefixCls,tableContext,onExportXls,onImportXls } = useListPage({
       tableProps:{
@@ -113,6 +116,16 @@
        showFooter: true,
      });
    }
+  /**
+   * 审核事件
+   */
+  function handleAudit(record: Recordable) {
+    openModalAudit(true, {
+      record,
+      isUpdate: true,
+      showFooter: true,
+    });
+  }
    /**
     * 详情
     */
@@ -189,8 +202,7 @@
          },
          {
            label: '审核',
-           // TODO 审核
-           onClick: handleEdit.bind(null, record),
+           onClick: handleAudit.bind(null, record),
            auth: 'orderapplication:order_application_main:audit'
          }
        ]
