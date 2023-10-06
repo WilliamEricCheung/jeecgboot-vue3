@@ -4,6 +4,10 @@ import {useUserStore} from '/@/store/modules/user';
 import {rules} from '/@/utils/helper/validator';
 import {render} from '/@/utils/common/renderUtils';
 import {JVxeTypes, JVxeColumn} from '/@/components/jeecg/JVxeTable/types'
+import {getUserRoleSet} from "@/views/system/user/user.api";
+
+const userRoleSet = await getUserRoleSet({username: useUserStore().getUserInfo.username});
+console.log(userRoleSet[0]);
 
 //表单数据
 export const formSchema: FormSchema[] = [

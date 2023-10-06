@@ -9,6 +9,7 @@ enum Api {
   agentSave = '/sys/sysUserAgent/add',
   agentEdit = '/sys/sysUserAgent/edit',
   getUserRole = '/sys/user/queryUserRole',
+  getUserRoleSet = '/sys/user/getUserRole',
   duplicateCheck = '/sys/duplicate/check',
   deleteUser = '/sys/user/delete',
   deleteBatch = '/sys/user/deleteBatch',
@@ -57,6 +58,12 @@ export const listNoCareTenant = (params) => defHttp.get({ url: Api.listNoCareTen
  * @param params
  */
 export const getUserRoles = (params) => defHttp.get({ url: Api.getUserRole, params }, { errorMessageMode: 'none' });
+
+/**
+ * 用户角色集合接口
+ * @param params
+ */
+export const getUserRoleSet = (params) => defHttp.get({ url: Api.getUserRoleSet, params }, { errorMessageMode: 'none' });
 
 /**
  * 删除用户
