@@ -38,7 +38,7 @@ export const formSchema: FormSchema[] = [
     label: '经办人',
     field: 'createBy',
     component: 'Input',
-    defaultValue: useUserStore().getUserInfo.realname,
+    defaultValue: useUserStore().getUserInfo.username,
     dynamicRules: ({model, schema}) => {
       return [
         {required: true, message: '请输入经办人!'},

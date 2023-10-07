@@ -90,6 +90,7 @@
     async function requestAddOrEdit(values) {
         try {
             values.updateTime = values.createTime;
+            // update_by需要在后端设置
             setModalProps({confirmLoading: true});
             //提交表单
             await saveOrUpdate(values, isUpdate.value);
