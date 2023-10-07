@@ -31,6 +31,7 @@
     import {formSchema,orderApplicationListColumns} from '../OrderApplicationMain.data';
     import {saveOrUpdate,orderApplicationListList} from '../OrderApplicationMain.api';
     import { VALIDATE_FAILED } from '/@/utils/common/vxeUtils'
+    import {useUserStore} from "@/store/modules/user";
     // Emits声明
     const emit = defineEmits(['register','success']);
     const isUpdate = ref(true);
@@ -63,7 +64,7 @@
             await setFieldsValue({
                 ...data.record,
             });
-             requestSubTableData(orderApplicationListList, {id:data?.record?.id}, orderApplicationListTable)
+             requestSubTableData(orderApplicationListList, {id:data?.record?.id, username:useUserStore().getUserInfo.username}, orderApplicationListTable)
         }
         // 隐藏底部时禁用整个表单
        setProps({ disabled: !data?.showFooter })
