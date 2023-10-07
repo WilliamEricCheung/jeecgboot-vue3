@@ -92,6 +92,12 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     show: false
   },
+  {
+    label: '',
+    field: 'departmentName',
+    component: 'Input',
+    show: false
+  },
 ];
 //子表单数据
 //子表表格配置
