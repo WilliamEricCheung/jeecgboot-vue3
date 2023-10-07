@@ -132,7 +132,7 @@
     * 详情
     */
   function handleDetail(record: Recordable) {
-     openModal(true, {
+     openModalAudit(true, {
        record,
        isUpdate: true,
        showFooter: false,

@@ -1,13 +1,14 @@
-import {BasicColumn} from '/@/components/Table';
 import {FormSchema} from '/@/components/Table';
 import {useUserStore} from '/@/store/modules/user';
-import {rules} from '/@/utils/helper/validator';
-import {render} from '/@/utils/common/renderUtils';
-import {JVxeTypes, JVxeColumn} from '/@/components/jeecg/JVxeTable/types'
+import {JVxeColumn, JVxeTypes} from '/@/components/jeecg/JVxeTable/types'
 import {getUserRoleSet} from "@/views/system/user/user.api";
 
 const userRoleSet = await getUserRoleSet({username: useUserStore().getUserInfo.username});
-console.log(userRoleSet[0]);
+const userRole = userRoleSet[0]
+const managerDisabled = userRole == 'leader';
+const leaderDisabled = userRole == 'manager';
+const managerOpinionType = managerDisabled? JVxeTypes.normal: JVxeTypes.select;
+const leaderOpinionType = leaderDisabled? JVxeTypes.normal: JVxeTypes.select;
 
 //表单数据
 export const formSchema: FormSchema[] = [
@@ -103,9 +104,25 @@ export const formSchema: FormSchema[] = [
 //子表表格配置
 export const orderApplicationListColumns: JVxeColumn[] = [
   {
-    title: '审批状态',
-    key: 'currentOpinion',
-    type: JVxeTypes.select,
+    title: '部门主管意见',
+    key: 'managerOpinion',
+    type: managerOpinionType,
+    defaultValue: '未审批',
+    width: "200px",
+    // 下拉选项
+    options: [
+      { title: '同意', value: '1' },
+      { title: '不同意', value: '0' },
+    ],
+    validateRules: [
+      {required: true, message: '${title}不能为空'},
+    ],
+    placeholder: '请选择',
+  },
+  {
+    title: '分管领导意见',
+    key: 'leaderOpinion',
+    type: leaderOpinionType,
     defaultValue: '未审批',
     width: "200px",
     // 下拉选项
