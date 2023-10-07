@@ -111,8 +111,8 @@ export const orderApplicationListColumns: JVxeColumn[] = [
     width: "200px",
     // 下拉选项
     options: [
-      { title: '同意', value: '1' },
-      { title: '不同意', value: '0' },
+      { title: '同意', value: '同意' },
+      { title: '不同意', value: '不同意' },
     ],
     validateRules: [
       {required: true, message: '${title}不能为空'},
@@ -127,8 +127,8 @@ export const orderApplicationListColumns: JVxeColumn[] = [
     width: "200px",
     // 下拉选项
     options: [
-      { title: '同意', value: '1' },
-      { title: '不同意', value: '0' },
+      { title: '同意', value: '同意' },
+      { title: '不同意', value: '不同意' },
     ],
     validateRules: [
       {required: true, message: '${title}不能为空'},
