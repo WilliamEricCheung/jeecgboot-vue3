@@ -95,8 +95,7 @@
         const data = await defHttp.get({url: queryByIdUrl, params});
         //设置表单的值
         await setFieldsValue({...data});
-        //通过系统当前用户角色显示部分子表内容
-        requestSubTableData(orderApplicationListList, {id: data.id, username: useUserStore().getUserInfo.username}, orderApplicationListTable, ()=>{
+        requestSubTableData(orderApplicationListList, {id: data.id}, orderApplicationListTable, ()=>{
           orderApplicationListTable.show = true;
         });
         //默认是禁用
