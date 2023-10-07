@@ -69,7 +69,7 @@
        setProps({ disabled: !data?.showFooter })
     });
     //方法配置
-    const [handleChangeTabs,handleSubmit,requestSubTableData,formRef] = useJvxeMethod(requestAddOrEdit,classifyIntoFormData,tableRefs,activeKey,refKeys);
+    const [handleChangeTabs,handleSubmit,requestSubTableData,formRef] = useJvxeMethod(requestAudit,classifyIntoFormData,tableRefs,activeKey,refKeys);
 
     //设置标题
     const title = '审核';
@@ -87,12 +87,11 @@
          }
        }
     //表单提交事件
-    async function requestAddOrEdit(values) {
+    async function requestAudit(values) {
         try {
             values.updateTime = values.createTime;
             setModalProps({confirmLoading: true});
             //提交表单
-            // await saveOrUpdate(values, isUpdate.value);
             await audit(values);
             //关闭弹窗
             closeModal();
