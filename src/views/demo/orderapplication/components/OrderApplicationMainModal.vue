@@ -64,7 +64,7 @@
             await setFieldsValue({
                 ...data.record,
             });
-             requestSubTableData(orderApplicationListList, {id:data?.record?.id, username:useUserStore().getUserInfo.username}, orderApplicationListTable)
+             requestSubTableData(orderApplicationListList, {id:data?.record?.id}, orderApplicationListTable)
         }
         // 隐藏底部时禁用整个表单
        setProps({ disabled: !data?.showFooter })
