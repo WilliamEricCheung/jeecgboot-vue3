@@ -97,8 +97,8 @@ export const formSchema: FormSchema[] = [
 //子表表格配置
 export const orderApplicationListColumns: JVxeColumn[] = [
   {
-    title: '部门主管审批结果',
-    key: 'managerOpinion',
+    title: '审批状态',
+    key: 'currentOpinion',
     type: JVxeTypes.select,
     defaultValue: '未审批',
     width: "200px",
@@ -109,19 +109,6 @@ export const orderApplicationListColumns: JVxeColumn[] = [
     ],
     validateRules: [
       {required: true, message: '${title}不能为空'},
-    ],
-    placeholder: '请选择',
-  },
-  {
-    title: '分管领导审批结果',
-    key: 'leaderOpinion',
-    type: JVxeTypes.select,
-    defaultValue: '未审批',
-    width: "200px",
-    // 下拉选项
-    options: [
-      { title: '同意', value: '1' },
-      { title: '不同意', value: '0' },
     ],
     placeholder: '请选择',
   },
