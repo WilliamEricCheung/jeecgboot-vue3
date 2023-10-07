@@ -37,6 +37,7 @@
   import { VALIDATE_FAILED } from '/@/utils/common/vxeUtils';
   import {getBpmFormSchema,orderApplicationListColumns} from '../OrderApplicationMain.data';
   import {saveOrUpdate,orderApplicationListList} from '../OrderApplicationMain.api';
+  import {useUserStore} from "@/store/modules/user";
 
   export default defineComponent({
     name: "OrderApplicationMainForm",
@@ -94,7 +95,8 @@
         const data = await defHttp.get({url: queryByIdUrl, params});
         //设置表单的值
         await setFieldsValue({...data});
-        requestSubTableData(orderApplicationListList, {id: data.id}, orderApplicationListTable, ()=>{
+        //通过系统当前用户角色显示部分子表内容
+        requestSubTableData(orderApplicationListList, {id: data.id, username: useUserStore().getUserInfo.username}, orderApplicationListTable, ()=>{
           orderApplicationListTable.show = true;
         });
         //默认是禁用
