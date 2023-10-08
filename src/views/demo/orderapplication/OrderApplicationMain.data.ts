@@ -4,6 +4,7 @@ import {useUserStore} from '/@/store/modules/user';
 import {rules} from '/@/utils/helper/validator';
 import {render} from '/@/utils/common/renderUtils';
 import {JVxeTypes, JVxeColumn} from '/@/components/jeecg/JVxeTable/types'
+import BasicForm from "@/components/Form/src/BasicForm.vue";
 //列表数据
 export const columns: BasicColumn[] = [
   {
@@ -73,7 +74,7 @@ export const searchFormSchema: FormSchema[] = [
   },
 ];
 //表单数据
-export const formSchema: FormSchema[] = [
+export const formSchema = [
   {
     label: '部门编码',
     field: 'sysOrgCode',
@@ -115,10 +116,12 @@ export const formSchema: FormSchema[] = [
     component: 'JSelectUserByDept',
     componentProps: {
       labelKey: 'realname',
+      isRadioSelection: true,
+      params: '{""}'
     },
     dynamicRules: ({model, schema}) => {
       return [
-        {required: true, message: '请输入部门主管!'},
+        {required: true, message: '请选择部门主管!'},
       ];
     },
   },
@@ -128,10 +131,11 @@ export const formSchema: FormSchema[] = [
     component: 'JSelectUserByDept',
     componentProps: {
       labelKey: 'realname',
+      isRadioSelection: true,
     },
     dynamicRules: ({model, schema}) => {
       return [
-        {required: true, message: '请输入分管领导!'},
+        {required: true, message: '请选择分管领导!'},
       ];
     },
   },

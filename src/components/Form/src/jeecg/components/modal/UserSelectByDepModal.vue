@@ -84,10 +84,15 @@
             width: 180,
           },
           {
-            title: '性别',
-            dataIndex: 'sex_dictText',
-            width: 80,
+            title: '部门',
+            dataIndex: 'orgCodeTxt',
+            width: 180,
           },
+          // {
+          //   title: '性别',
+          //   dataIndex: 'sex_dictText',
+          //   width: 80,
+          // },
           {
             title: '手机号码',
             dataIndex: 'phone',
