@@ -35,6 +35,7 @@
     // Emits声明
     const emit = defineEmits(['register','success']);
     const isUpdate = ref(true);
+    const isDetail = ref(false);
     const formDisabled = ref(false);
     const refKeys = ref(['orderApplicationList', ]);
     const activeKey = ref('orderApplicationList');
@@ -58,6 +59,7 @@
         await reset();
         setModalProps({confirmLoading: false,showCancelBtn:data?.showFooter,showOkBtn:data?.showFooter});
         isUpdate.value = !!data?.isUpdate;
+        isDetail.value = !!data?.isDetail;
         formDisabled.value = !data?.showFooter;
         if (unref(isUpdate)) {
             //表单赋值
@@ -73,7 +75,7 @@
     const [handleChangeTabs,handleSubmit,requestSubTableData,formRef] = useJvxeMethod(requestAudit,classifyIntoFormData,tableRefs,activeKey,refKeys);
 
     //设置标题
-    const title = '审核';
+    const title = computed(() => (unref(isDetail) ? '详情' : '审核'));
 
     async function reset(){
       await resetFields();

@@ -125,6 +125,7 @@
     openModalAudit(true, {
       record,
       isUpdate: true,
+      isDetail: false,
       showFooter: true,
     });
   }
@@ -135,6 +136,7 @@
      openModalAudit(true, {
        record,
        isUpdate: true,
+       isDetail: true,
        showFooter: false,
      });
    }
