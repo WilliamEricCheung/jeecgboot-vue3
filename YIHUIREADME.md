@@ -5,9 +5,9 @@
 location /oa {
   #前端打的dist资源存放目录
   alias		 /srv/www/project;
-  # index  index.html;
+  index  index.html;
   # 避免f5刷新后404
-  try_files  $uri  $uri/  /srv/www/project/index.html;
+  try_files  $uri  $uri/  /oa/index.html;
 }
 ```
 
