@@ -1,23 +1,31 @@
-import type { UserInfo, LoginInfo } from '/#/store';
-import type { ErrorMessageMode } from '/#/axios';
-import { defineStore } from 'pinia';
-import { store } from '/@/store';
-import { RoleEnum } from '/@/enums/roleEnum';
-import { PageEnum } from '/@/enums/pageEnum';
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY, LOGIN_INFO_KEY, DB_DICT_DATA_KEY, TENANT_ID } from '/@/enums/cacheEnum';
-import { getAuthCache, setAuthCache, removeAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams, ThirdLoginParams } from '/@/api/sys/model/userModel';
-import { doLogout, getUserInfo, loginApi, phoneLoginApi, thirdLogin } from '/@/api/sys/user';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { router } from '/@/router';
-import { usePermissionStore } from '/@/store/modules/permission';
-import { RouteRecordRaw } from 'vue-router';
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
-import { isArray } from '/@/utils/is';
-import { useGlobSetting } from '/@/hooks/setting';
-import { JDragConfigEnum } from '/@/enums/jeecgEnum';
-import { useSso } from '/@/hooks/web/useSso';
+import type {LoginInfo, UserInfo} from '/#/store';
+import type {ErrorMessageMode} from '/#/axios';
+import {defineStore} from 'pinia';
+import {store} from '/@/store';
+import {RoleEnum} from '/@/enums/roleEnum';
+import {PageEnum} from '/@/enums/pageEnum';
+import {
+  DB_DICT_DATA_KEY,
+  LOGIN_INFO_KEY,
+  ROLES_KEY,
+  TENANT_ID,
+  TOKEN_KEY,
+  USER_INFO_KEY
+} from '/@/enums/cacheEnum';
+import {getAuthCache, removeAuthCache, setAuthCache} from '/@/utils/auth';
+import {GetUserInfoModel, LoginParams, ThirdLoginParams} from '/@/api/sys/model/userModel';
+import {doLogout, getUserInfo, loginApi, phoneLoginApi, thirdLogin} from '/@/api/sys/user';
+import {useI18n} from '/@/hooks/web/useI18n';
+import {useMessage} from '/@/hooks/web/useMessage';
+import {router} from '/@/router';
+import {usePermissionStore} from '/@/store/modules/permission';
+import {RouteRecordRaw} from 'vue-router';
+import {PAGE_NOT_FOUND_ROUTE} from '/@/router/routes/basic';
+import {isArray} from '/@/utils/is';
+import {useGlobSetting} from '/@/hooks/setting';
+import {JDragConfigEnum} from '/@/enums/jeecgEnum';
+import {useSso} from '/@/hooks/web/useSso';
+
 interface UserState {
   userInfo: Nullable<UserInfo>;
   token?: string;
@@ -259,6 +267,8 @@ export const useUserStore = defineStore({
       }
 
       goLogin && (await router.push(PageEnum.BASE_LOGIN));
+      // 退出登录刷新才能真把缓存重置，有BUG
+      location.reload();
     },
     /**
      * 登录事件
