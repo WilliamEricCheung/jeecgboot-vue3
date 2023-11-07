@@ -42,7 +42,22 @@ export function useCustomSelection(
 
   // 扁平化数据，children数据也会放到一起
   const flattedData = computed(() => {
-    return flattenData(tableData.value, childrenColumnName.value);
+    // update-begin--author:liaozhiyang---date:20231016---for：【QQYUN-6774】解决checkbox禁用后全选仍能勾选问题
+    const data = flattenData(tableData.value, childrenColumnName.value);
+    const rowSelection = propsRef.value.rowSelection;
+    if (rowSelection?.type === 'checkbox' && rowSelection.getCheckboxProps) {
+      for (let i = 0, len = data.length; i < len; i++) {
+        const record = data[i];
+        const result = rowSelection.getCheckboxProps(record);
+        if (result.disabled) {
+          data.splice(i, 1);
+          i--;
+          len--;
+        }
+      }
+    }
+    return data;
+    // update-end--author:liaozhiyang---date:20231016---for：【QQYUN-6774】解决checkbox禁用后全选仍能勾选问题
   });
 
   const getRowSelectionRef = computed((): TableRowSelection | null => {
@@ -103,6 +118,8 @@ export function useCustomSelection(
       isRadio: isRadio.value,
       selectedLength: flattedData.value.filter((data) => selectedKeys.value.includes(getRecordKey(data))).length,
       pageSize: currentPageSize.value,
+      // 【QQYUN-6774】解决checkbox禁用后全选仍能勾选问题
+      disabled: flattedData.value.length == 0,
     };
   });
 
@@ -316,7 +333,8 @@ export function useCustomSelection(
   // 自定义渲染Body
   function bodyCustomRender(params) {
     const { index } = params;
-    if (!recordIsShow(index)) {
+    // update-begin--author:liaozhiyang---date:20231009--for：【issues/776】显示100条/页，复选框只能显示3个的问题
+    if (propsRef.value.canResize && !recordIsShow(index)) {
       return '';
     }
     if (isRadio.value) {
@@ -324,6 +342,7 @@ export function useCustomSelection(
     } else {
       return renderCheckboxComponent(params);
     }
+    // update-end--author:liaozhiyang---date:20231009---for：【issues/776】显示100条/页，复选框只能显示3个的问题
   }
 
   /**
@@ -357,8 +376,19 @@ export function useCustomSelection(
    */
   function renderRadioComponent({ record }) {
     const recordKey = getRecordKey(record);
+    // update-begin--author:liaozhiyang---date:20231016---for：【QQYUN-6794】table列表增加radio禁用功能
+    // 获取用户自定义radioProps
+    const checkboxProps = (() => {
+      const rowSelection = propsRef.value.rowSelection;
+      if (rowSelection?.getCheckboxProps) {
+        return rowSelection.getCheckboxProps(record);
+      }
+      return {};
+    })();
+    // update-end--author:liaozhiyang---date:20231016---for：【QQYUN-6794】table列表增加radio禁用功能
     return (
       <Radio
+        {...checkboxProps}
         key={'j-select__' + recordKey}
         checked={selectedKeys.value.includes(recordKey)}
         onUpdate:checked={(checked) => onSelect(record, checked)}
@@ -402,6 +432,7 @@ export function useCustomSelection(
 
   // 设置选择的key
   function setSelectedRowKeys(rowKeys: string[]) {
+    const isSomeRowKeys = selectedKeys.value === rowKeys;
     selectedKeys.value = rowKeys;
     const allSelectedRows = findNodeAll(
       toRaw(unref(flattedData)).concat(toRaw(unref(selectedRows))),
@@ -415,14 +446,33 @@ export function useCustomSelection(
       const found = allSelectedRows.find((item) => getRecordKey(item) === key);
       found && trueSelectedRows.push(found);
     });
-    // update-begin--author:liaozhiyang---date:20230823---for：【QQYUN-6283】点击表格清空，rowSelect里面的selectedRowKeys没置空。
-    // update-begin--author:liaozhiyang---date:20230811---for：【issues/657】浏览器卡死问题
-    if (trueSelectedRows.length || !rowKeys.length) {
+    // update-begin--author:liaozhiyang---date:20231103---for：【issues/828】解决卡死问题
+    if (!(isSomeRowKeys && equal(selectedRows.value, trueSelectedRows))) {
       selectedRows.value = trueSelectedRows;
       emitChange();
     }
-    // update-end--author:liaozhiyang---date:20230811---for：【issues/657】】浏览器卡死问题
-    // update-end--author:liaozhiyang---date:20230823---for：【QQYUN-6283】点击表格清空，rowSelect里面的selectedRowKeys没置空。
+    // update-end--author:liaozhiyang---date:20231103---for：【issues/828】解决卡死问题
+  }
+  /**
+   *2023-11-03
+   *廖志阳
+   *检测selectedRows.value和trueSelectedRows是否相等，防止死循环
+   */
+  function equal(oldVal, newVal) {
+    let oldKeys = [],
+      newKeys = [];
+    if (oldVal.length === newVal.length) {
+      oldKeys = oldVal.map((item) => getRecordKey(item));
+      newKeys = newVal.map((item) => getRecordKey(item));
+      for (let i = 0, len = oldKeys.length; i < len; i++) {
+        const findItem = newKeys.find((item) => item === oldKeys[i]);
+        if (!findItem) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   function getSelectRows<T = Recordable>() {
