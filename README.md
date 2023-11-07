@@ -1,11 +1,11 @@
 JEECG BOOT 低代码开发平台（Vue3前端）
 ===============
-当前最新版本： 3.5.5（发布时间：2023-09-22）
+当前最新版本： 3.6.0（发布时间：2023-10-23）
 
 [![AUR](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](https://github.com/zhangdaiscott/jeecg-boot/blob/master/LICENSE)
-[![](https://img.shields.io/badge/Author-北京敲敲云科技-orange.svg)](http://www.jeecg.com)
+[![](https://img.shields.io/badge/Author-北京国炬软件-orange.svg)](http://jeecg.com/aboutusIndex)
 [![](https://img.shields.io/badge/Blog-官方博客-blue.svg)](https://jeecg.blog.csdn.net)
-[![](https://img.shields.io/badge/version-3.5.5-brightgreen.svg)](https://github.com/zhangdaiscott/jeecg-boot)
+[![](https://img.shields.io/badge/version-3.6.0-brightgreen.svg)](https://github.com/zhangdaiscott/jeecg-boot)
 [![GitHub stars](https://img.shields.io/github/stars/zhangdaiscott/jeecg-boot.svg?style=social&label=Stars)](https://github.com/zhangdaiscott/jeecg-boot)
 [![GitHub forks](https://img.shields.io/github/forks/zhangdaiscott/jeecg-boot.svg?style=social&label=Fork)](https://github.com/zhangdaiscott/jeecg-boot)
 
@@ -31,10 +31,10 @@ JeecgBoot-Vue3采用 Vue3.0、Vite、 Ant-Design-Vue3、TypeScript 等新技术�
 
 ##### 项目说明
 
-| 项目名                | 说明                     | 
-|--------------------|------------------------|
-| `jeecgboot-vue3` | Vue3版前端代码 | 
-| `jeecg-boot`    | SpringBoot后台项目（支持微服务）        | 
+| 项目名                | 说明                                      | 
+|--------------------|-----------------------------------------|
+| `jeecgboot-vue3` | 前端源码Vue3版下载                             | 
+| `jeecg-boot`    | 后端JAVA源码下载（SpringBoot+SpringCloud） | 
 
 ## 开发环境搭建
 
@@ -47,8 +47,8 @@ JeecgBoot-Vue3采用 Vue3.0、Vite、 Ant-Design-Vue3、TypeScript 等新技术�
 -   官方文档：[http://help.jeecg.com](http://help.jeecg.com)
 -   官方网站： [http://www.jeecg.com](http://www.jeecg.com)
 -   快速入门：[快速入门](http://jeecg.com/doc/quickstart) | [常见问题](http://help.jeecg.com/qa.html) | [视频教程](https://www.bilibili.com/video/BV1V34y187Y9 "入门视频") |  [ 代码生成](http://help.jeecg.com/vue3/codegen/online.html)
--   QQ交流群：⑦791696430、683903138
--   在线演示 ：  [Vue3演示](http://boot3.jeecg.com)  |  [Vue2演示](http://boot3.jeecg.com) | [APP演示](http://jeecg.com/appIndex)
+-   QQ交流群：⑧825232878、⑦791696430(满)、683903138(满)
+-   在线演示 ：  [Vue3演示](http://boot3.jeecg.com)   | [APP演示](http://jeecg.com/appIndex)|  [敲敲云零代码](https://www.qiaoqiaoyun.com)
 > 演示系统的登录账号密码，请点击 [获取账号密码](http://jeecg.com/doc/demo) 获取
 
 
