@@ -207,7 +207,8 @@
          {
            label: '审核',
            onClick: handleAudit.bind(null, record),
-           auth: 'orderapplication:order_application_main:audit'
+           auth: 'orderapplication:order_application_main:audit',
+           disabled: (record.applicationStatus == 'applicant_revoked')
          }
        ]
    }

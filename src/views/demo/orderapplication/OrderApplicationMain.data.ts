@@ -5,6 +5,8 @@ import {rules} from '/@/utils/helper/validator';
 import {render} from '/@/utils/common/renderUtils';
 import {JVxeTypes, JVxeColumn} from '/@/components/jeecg/JVxeTable/types'
 import BasicForm from "@/components/Form/src/BasicForm.vue";
+import {getDictItems} from "@/api/common/api";
+
 //列表数据
 export const columns: BasicColumn[] = [
   {
@@ -140,9 +142,18 @@ export const formSchema = [
     },
   },
   {
-    label: '申请理由',
+    // https://help.jeecg.com/component/JSelectInput.html#%E7%BB%84%E4%BB%B6%E5%8F%82%E6%95%B0
     field: 'reason',
-    component: 'InputTextArea',
+    label: '申请理由',
+    component: 'JSelectInput',
+    componentProps: {
+      options: await getDictItems('reason'),
+        // [
+        //   { label: '培训教学用具', value: '培训教学用具' },
+        //   { label: '后勤保障备品', value: '后勤保障备品' },
+        //   { label: '信息设备耗材', value: '信息设备耗材' },
+        // ],
+    },
     dynamicRules: ({model, schema}) => {
       return [
         {required: true, message: '请输入申请理由!'},
@@ -263,13 +274,20 @@ export const orderApplicationListColumns: JVxeColumn[] = [
   {
     title: '用途及使用场所',
     key: 'purpose',
-    type: JVxeTypes.input,
+    type: JVxeTypes.select,
     width: "200px",
     placeholder: '请输入${title}',
     defaultValue: '',
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    options: [
+      // { label: '培训教学用具', value: '培训教学用具' },
+      // { label: '后勤保障备品', value: '后勤保障备品' },
+      // { label: '信息设备耗材', value: '信息设备耗材' },
+    ],
+    dictCode: 'purpose',
+    allowInput: true
   },
   {
     title: '电商平台物资编码',

@@ -1,3 +1,6 @@
+## 同步fork教程
+https://cloud.tencent.com/developer/article/2273227
+
 ## nginx 配置
 
 ### 前端在/oa下的方式

@@ -301,9 +301,9 @@ export const useUserStore = defineStore({
 
       }
       //update-end---author:wangshuai ---date:20230224  for：[QQYUN-3440]新建企业微信和钉钉配置表，通过租户模式隔离------------
-      goLogin && (await router.push(PageEnum.BASE_LOGIN));
-      // 退出登录刷新才能真把缓存重置，有BUG
-      location.reload();
+      // goLogin && (await router.push(PageEnum.BASE_LOGIN));
+      // // 退出登录刷新才能真把缓存重置，有BUG
+      // location.reload();
     },
     /**
      * 登录事件
