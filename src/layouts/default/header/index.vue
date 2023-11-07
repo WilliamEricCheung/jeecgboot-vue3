@@ -37,7 +37,7 @@
 
       <UserDropDown :theme="getHeaderTheme" />
 
-<!--      <SettingDrawer v-if="getShowSetting" :class="`${prefixCls}-action__item`" />-->
+      <SettingDrawer v-if="getShowSetting" :class="`${prefixCls}-action__item`" />
     </div>
   </Header>
   <LoginSelect ref="loginSelectRef" @success="loginSelectOk"></LoginSelect>

@@ -249,10 +249,16 @@ export const orderApplicationListColumns: JVxeColumn[] = [
     type: JVxeTypes.inputNumber,
     width: "200px",
     placeholder: '请输入${title}',
-    defaultValue: '',
+    defaultValue: 0,
     validateRules: [
       {required: true, message: '${title}不能为空'},
     ],
+    disabled: true,
+    slots: {
+      default: ({ row }) => {
+        return `${row.price * row.number}`;
+      },
+    },
   },
   {
     title: '用途及使用场所',
