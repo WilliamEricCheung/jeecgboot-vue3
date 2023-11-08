@@ -1,21 +1,21 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="registerModal" :defaultFullscreen="true" destroyOnClose :title="title" :width="896" @ok="handleSubmit">
+  <BasicModal v-bind="$attrs" @register="registerModal" destroyOnClose :title="title" :width="896" @ok="handleSubmit">
       <BasicForm @register="registerForm" ref="formRef"/>
   <!-- 子表单区域 -->
     <a-tabs v-model:activeKey="activeKey" animated @change="handleChangeTabs">
-      <a-tab-pane tab="电商采购月度申请表采购物资具体要求" key="orderApplicationList" :forceRender="true">
+      <a-tab-pane tab="物品到货验明细" key="receiptList" :forceRender="true">
         <JVxeTable
           keep-source
           resizable
-          ref="orderApplicationList"
-          :loading="orderApplicationListTable.loading"
-          :columns="orderApplicationListTable.columns"
-          :dataSource="orderApplicationListTable.dataSource"
+          ref="receiptList"
+          :loading="receiptListTable.loading"
+          :columns="receiptListTable.columns"
+          :dataSource="receiptListTable.dataSource"
           :height="340"
           :rowNumber="true"
-          :rowSelection="false"
+          :rowSelection="true"
           :disabled="formDisabled"
-          :toolbar="false"
+          :toolbar="true"
           />
       </a-tab-pane>
     </a-tabs>
@@ -28,23 +28,21 @@
     import {BasicForm, useForm} from '/@/components/Form/index';
     import { JVxeTable } from '/@/components/jeecg/JVxeTable'
     import { useJvxeMethod } from '/@/hooks/system/useJvxeMethods.ts'
-    import {formSchema,orderApplicationListColumns} from '../OrderApplicationMainAudit.data';
-    import {audit, orderApplicationListList} from '../OrderApplicationMain.api';
+    import {formSchema,receiptListColumns} from '../ReceiptMain.data';
+    import {saveOrUpdate,receiptListList} from '../ReceiptMain.api';
     import { VALIDATE_FAILED } from '/@/utils/common/vxeUtils'
-    import {useUserStore} from "@/store/modules/user";
     // Emits声明
     const emit = defineEmits(['register','success']);
     const isUpdate = ref(true);
-    const isDetail = ref(false);
     const formDisabled = ref(false);
-    const refKeys = ref(['orderApplicationList', ]);
-    const activeKey = ref('orderApplicationList');
-    const orderApplicationList = ref();
-    const tableRefs = {orderApplicationList, };
-    const orderApplicationListTable = reactive({
+    const refKeys = ref(['receiptList', ]);
+    const activeKey = ref('receiptList');
+    const receiptList = ref();
+    const tableRefs = {receiptList, };
+    const receiptListTable = reactive({
           loading: false,
           dataSource: [],
-          columns:orderApplicationListColumns
+          columns:receiptListColumns
     })
     //表单配置
     const [registerForm, {setProps,resetFields, setFieldsValue, validate}] = useForm({
@@ -59,43 +57,41 @@
         await reset();
         setModalProps({confirmLoading: false,showCancelBtn:data?.showFooter,showOkBtn:data?.showFooter, defaultFullscreen: true});
         isUpdate.value = !!data?.isUpdate;
-        isDetail.value = !!data?.isDetail;
         formDisabled.value = !data?.showFooter;
         if (unref(isUpdate)) {
             //表单赋值
             await setFieldsValue({
                 ...data.record,
             });
-             requestSubTableData(orderApplicationListList, {id:data?.record?.id}, orderApplicationListTable)
+             requestSubTableData(receiptListList, {id:data?.record?.id}, receiptListTable)
         }
         // 隐藏底部时禁用整个表单
        setProps({ disabled: !data?.showFooter })
     });
     //方法配置
-    const [handleChangeTabs,handleSubmit,requestSubTableData,formRef] = useJvxeMethod(requestAudit,classifyIntoFormData,tableRefs,activeKey,refKeys);
+    const [handleChangeTabs,handleSubmit,requestSubTableData,formRef] = useJvxeMethod(requestAddOrEdit,classifyIntoFormData,tableRefs,activeKey,refKeys);
 
     //设置标题
-    const title = computed(() => (unref(isDetail) ? '详情' : '审核'));
+    const title = computed(() => (!unref(isUpdate) ? '新增' : '编辑'));
 
     async function reset(){
       await resetFields();
-      activeKey.value = 'orderApplicationList';
-      orderApplicationListTable.dataSource = [];
+      activeKey.value = 'receiptList';
+      receiptListTable.dataSource = [];
     }
     function classifyIntoFormData(allValues) {
          let main = Object.assign({}, allValues.formValue)
          return {
            ...main, // 展开
-           orderApplicationListList: allValues.tablesValue[0].tableData,
+           receiptListList: allValues.tablesValue[0].tableData,
          }
        }
     //表单提交事件
-    async function requestAudit(values) {
+    async function requestAddOrEdit(values) {
         try {
-            values.updateTime = values.createTime;
             setModalProps({confirmLoading: true});
             //提交表单
-            await audit(values);
+            await saveOrUpdate(values, isUpdate.value);
             //关闭弹窗
             closeModal();
             //刷新列表

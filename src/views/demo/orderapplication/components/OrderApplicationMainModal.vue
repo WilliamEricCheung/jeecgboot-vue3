@@ -56,7 +56,7 @@
     const [registerModal, {setModalProps, closeModal}] = useModalInner(async (data) => {
         //重置表单
         await reset();
-        setModalProps({confirmLoading: false,showCancelBtn:data?.showFooter,showOkBtn:data?.showFooter});
+        setModalProps({confirmLoading: false,showCancelBtn:data?.showFooter,showOkBtn:data?.showFooter, defaultFullscreen: true});
         isUpdate.value = !!data?.isUpdate;
         formDisabled.value = !data?.showFooter;
         if (unref(isUpdate)) {

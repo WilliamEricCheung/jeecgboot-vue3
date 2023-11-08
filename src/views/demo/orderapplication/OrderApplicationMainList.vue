@@ -145,7 +145,6 @@
    * 打印申请事件
    */
   async function handlePrint(record) {
-    // await printOne({id: record.id}, handleSuccess);
     let token = getToken();
     let url = `${window._CONFIG['domianURL']}/jmreport/view/857474803385208832?token=${token}&id=${record.id}`;
     window.open(url, "_blank");
