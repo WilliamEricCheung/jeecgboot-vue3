@@ -236,12 +236,12 @@ export const formSchema: FormSchema[] = [
     label: '身份',
     field: 'userIdentity',
     component: 'RadioGroup',
-    defaultValue: 1,
+    defaultValue: 2,
     componentProps: ({ formModel }) => {
       return {
         options: [
           { label: '普通用户', value: 1, key: '1' },
-          { label: '上级', value: 2, key: '2' },
+          { label: '部门用户', value: 2, key: '2' },
         ],
         onChange: () => {
           formModel.userIdentity == 1 && (formModel.departIds = []);
