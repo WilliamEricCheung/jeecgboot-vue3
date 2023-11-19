@@ -11,11 +11,11 @@
               <DepartFormTab :data="departData" :rootTreeData="rootTreeData" @success="onSuccess" />
             </div>
           </a-tab-pane>
-          <a-tab-pane tab="部门权限" key="role-info">
-            <div style="padding: 0 20px 20px">
-              <DepartRuleTab :data="departData" />
-            </div>
-          </a-tab-pane>
+<!--          <a-tab-pane tab="部门权限" key="role-info">-->
+<!--            <div style="padding: 0 20px 20px">-->
+<!--              <DepartRuleTab :data="departData" />-->
+<!--            </div>-->
+<!--          </a-tab-pane>-->
         </a-tabs>
         <div v-show="departData == null" style="padding-top: 40px">
           <a-empty description="尚未选择部门" />

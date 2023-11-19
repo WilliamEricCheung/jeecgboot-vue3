@@ -292,10 +292,10 @@ export const useUserStore = defineStore({
         // update-begin-author:sunjianlei date:20230306 for: 修复登录成功后，没有正确重定向的问题
         goLogin && (await router.push({
           path: PageEnum.BASE_LOGIN,
-          query: {
-            // 传入当前的路由，登录成功后跳转到当前路由
-            redirect: router.currentRoute.value.fullPath,
-          }
+          // query: {
+          //   // 传入当前的路由，登录成功后跳转到当前路由
+          //   redirect: router.currentRoute.value.fullPath,
+          // }
         }));
         // update-end-author:sunjianlei date:20230306 for: 修复登录成功后，没有正确重定向的问题
 

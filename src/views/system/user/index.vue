@@ -80,9 +80,9 @@
   //密码model
   const [registerPasswordModal, { openModal: openPasswordModal }] = useModal();
   //代理人model
-  const [registerAgentModal, { openModal: openAgentModal }] = useModal();
+  // const [registerAgentModal, { openModal: openAgentModal }] = useModal();
   //离职代理人model
-  const [registerQuitAgentModal, { openModal: openQuitAgentModal }] = useModal();
+  // const [registerQuitAgentModal, { openModal: openQuitAgentModal }] = useModal();
   //离职用户列表model
   const [registerQuitModal, { openModal: openQuitModal }] = useModal();
 
@@ -281,10 +281,10 @@
           confirm: handleFrozen.bind(null, record, 1),
         },
       },
-      {
-        label: '代理人',
-        onClick: handleAgentSettings.bind(null, record.username),
-      },
+      // {
+      //   label: '代理人',
+      //   onClick: handleAgentSettings.bind(null, record.username),
+      // },
     ];
   }
 

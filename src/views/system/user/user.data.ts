@@ -14,46 +14,46 @@ export const columns: BasicColumn[] = [
     dataIndex: 'realname',
     width: 100,
   },
-  {
-    title: '头像',
-    dataIndex: 'avatar',
-    width: 120,
-    customRender: render.renderAvatar,
-  },
-  {
-    title: '性别',
-    dataIndex: 'sex',
-    width: 80,
-    sorter: true,
-    customRender: ({ text }) => {
-      return render.renderDict(text, 'sex');
-    },
-  },
-  {
-    title: '生日',
-    dataIndex: 'birthday',
-    width: 100,
-  },
-  {
-    title: '手机号',
-    dataIndex: 'phone',
-    width: 100,
-  },
+  // {
+  //   title: '头像',
+  //   dataIndex: 'avatar',
+  //   width: 120,
+  //   customRender: render.renderAvatar,
+  // },
+  // {
+  //   title: '性别',
+  //   dataIndex: 'sex',
+  //   width: 80,
+  //   sorter: true,
+  //   customRender: ({ text }) => {
+  //     return render.renderDict(text, 'sex');
+  //   },
+  // },
+  // {
+  //   title: '生日',
+  //   dataIndex: 'birthday',
+  //   width: 100,
+  // },
+  // {
+  //   title: '手机号',
+  //   dataIndex: 'phone',
+  //   width: 100,
+  // },
   {
     title: '部门',
     width: 150,
     dataIndex: 'orgCodeTxt',
   },
-  {
-    title: '负责部门',
-    width: 150,
-    dataIndex: 'departIds_dictText',
-  },
-  {
-    title: '状态',
-    dataIndex: 'status_dictText',
-    width: 80,
-  },
+  // {
+  //   title: '负责部门',
+  //   width: 150,
+  //   dataIndex: 'departIds_dictText',
+  // },
+  // {
+  //   title: '状态',
+  //   dataIndex: 'status_dictText',
+  //   width: 80,
+  // },
 ];
 
 export const recycleColumns: BasicColumn[] = [
@@ -67,12 +67,12 @@ export const recycleColumns: BasicColumn[] = [
     dataIndex: 'realname',
     width: 100,
   },
-  {
-    title: '头像',
-    dataIndex: 'avatar',
-    width: 80,
-    customRender: render.renderAvatar,
-  },
+  // {
+  //   title: '头像',
+  //   dataIndex: 'avatar',
+  //   width: 80,
+  //   customRender: render.renderAvatar,
+  // },
   {
     title: '性别',
     dataIndex: 'sex',
@@ -173,15 +173,15 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     dynamicRules: ({ model, schema }) => ({ ...rules.duplicateCheckRule('sys_user', 'work_no', model, schema, true), trigger: 'blur' }),
   },
-  {
-    label: '职务',
-    field: 'post',
-    required: false,
-    component: 'JSelectPosition',
-    componentProps: {
-      labelKey: 'name',
-    },
-  },
+  // {
+  //   label: '职务',
+  //   field: 'post',
+  //   required: false,
+  //   component: 'JSelectPosition',
+  //   componentProps: {
+  //     labelKey: 'name',
+  //   },
+  // },
   {
     label: '角色',
     field: 'selectedroles',
@@ -219,19 +219,19 @@ export const formSchema: FormSchema[] = [
       };
     },
   },
-  {
-    label: '租户',
-    field: 'relTenantIds',
-    component: 'ApiSelect',
-    componentProps: {
-      mode: 'multiple',
-      api: getAllTenantList,
-      numberToString: true,
-      labelField: 'name',
-      valueField: 'id',
-      immediate: false,
-    },
-  },
+  // {
+  //   label: '租户',
+  //   field: 'relTenantIds',
+  //   component: 'ApiSelect',
+  //   componentProps: {
+  //     mode: 'multiple',
+  //     api: getAllTenantList,
+  //     numberToString: true,
+  //     labelField: 'name',
+  //     valueField: 'id',
+  //     immediate: false,
+  //   },
+  // },
   {
     label: '身份',
     field: 'userIdentity',
@@ -249,77 +249,77 @@ export const formSchema: FormSchema[] = [
       };
     },
   },
-  {
-    label: '负责部门',
-    field: 'departIds',
-    component: 'Select',
-    componentProps: {
-      mode: 'multiple',
-    },
-    ifShow: ({ values }) => values.userIdentity == 2,
-  },
-  {
-    label: '头像',
-    field: 'avatar',
-    component: 'JImageUpload',
-    componentProps: {
-      fileMax: 1,
-    },
-  },
-  {
-    label: '生日',
-    field: 'birthday',
-    component: 'DatePicker',
-  },
-  {
-    label: '性别',
-    field: 'sex',
-    component: 'JDictSelectTag',
-    componentProps: {
-      dictCode: 'sex',
-      placeholder: '请选择性别',
-      stringToNumber: true,
-    },
-  },
-  {
-    label: '邮箱',
-    field: 'email',
-    component: 'Input',
-    dynamicRules: ({ model, schema }) => {
-      return [
-        { ...rules.duplicateCheckRule('sys_user', 'email', model, schema, true)[0], trigger: 'blur' },
-        { ...rules.rule('email', false)[0], trigger: 'blur' },
-      ];
-    },
-  },
-  {
-    label: '手机号码',
-    field: 'phone',
-    component: 'Input',
-    dynamicRules: ({ model, schema }) => {
-      return [
-        { ...rules.duplicateCheckRule('sys_user', 'phone', model, schema, true)[0], trigger: 'blur' },
-        { pattern: /^1[3456789]\d{9}$/, message: '手机号码格式有误', trigger: 'blur' },
-      ];
-    },
-  },
-  {
-    label: '座机',
-    field: 'telephone',
-    component: 'Input',
-    rules: [{ pattern: /^0\d{2,3}-[1-9]\d{6,7}$/, message: '请输入正确的座机号码' }],
-  },
-  {
-    label: '工作流引擎',
-    field: 'activitiSync',
-    defaultValue: 1,
-    component: 'JDictSelectTag',
-    componentProps: {
-      dictCode: 'activiti_sync',
-      type: 'radio',
-      stringToNumber: true,
-    },
-  },
+  // {
+  //   label: '负责部门',
+  //   field: 'departIds',
+  //   component: 'Select',
+  //   componentProps: {
+  //     mode: 'multiple',
+  //   },
+  //   ifShow: ({ values }) => values.userIdentity == 2,
+  // },
+  // {
+  //   label: '头像',
+  //   field: 'avatar',
+  //   component: 'JImageUpload',
+  //   componentProps: {
+  //     fileMax: 1,
+  //   },
+  // },
+  // {
+  //   label: '生日',
+  //   field: 'birthday',
+  //   component: 'DatePicker',
+  // },
+  // {
+  //   label: '性别',
+  //   field: 'sex',
+  //   component: 'JDictSelectTag',
+  //   componentProps: {
+  //     dictCode: 'sex',
+  //     placeholder: '请选择性别',
+  //     stringToNumber: true,
+  //   },
+  // },
+  // {
+  //   label: '邮箱',
+  //   field: 'email',
+  //   component: 'Input',
+  //   dynamicRules: ({ model, schema }) => {
+  //     return [
+  //       { ...rules.duplicateCheckRule('sys_user', 'email', model, schema, true)[0], trigger: 'blur' },
+  //       { ...rules.rule('email', false)[0], trigger: 'blur' },
+  //     ];
+  //   },
+  // },
+  // {
+  //   label: '手机号码',
+  //   field: 'phone',
+  //   component: 'Input',
+  //   dynamicRules: ({ model, schema }) => {
+  //     return [
+  //       { ...rules.duplicateCheckRule('sys_user', 'phone', model, schema, true)[0], trigger: 'blur' },
+  //       { pattern: /^1[3456789]\d{9}$/, message: '手机号码格式有误', trigger: 'blur' },
+  //     ];
+  //   },
+  // },
+  // {
+  //   label: '座机',
+  //   field: 'telephone',
+  //   component: 'Input',
+  //   rules: [{ pattern: /^0\d{2,3}-[1-9]\d{6,7}$/, message: '请输入正确的座机号码' }],
+  // },
+  // {
+  //   label: '工作流引擎',
+  //   field: 'activitiSync',
+  //   defaultValue: 1,
+  //   component: 'JDictSelectTag',
+  //   componentProps: {
+  //     dictCode: 'activiti_sync',
+  //     type: 'radio',
+  //     stringToNumber: true,
+  //   },
+  // },
 ];
 
 export const formPasswordSchema: FormSchema[] = [
@@ -478,72 +478,72 @@ export const formQuitAgentSchema: FormSchema[] = [
 ];
 
 //租户用户列表
-export const userTenantColumns: BasicColumn[] = [
-  {
-    title: '用户账号',
-    dataIndex: 'username',
-    width: 120,
-  },
-  {
-    title: '用户姓名',
-    dataIndex: 'realname',
-    width: 100,
-  },
-  {
-    title: '头像',
-    dataIndex: 'avatar',
-    width: 120,
-    customRender: render.renderAvatar,
-  },
-  {
-    title: '手机号',
-    dataIndex: 'phone',
-    width: 100,
-  },
-  {
-    title: '部门',
-    width: 150,
-    dataIndex: 'orgCodeTxt',
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    width: 80,
-    customRender: ({ text }) => {
-      if (text === '1') {
-        return '正常';
-      } else if (text === '3') {
-        return '审批中';
-      } else {
-        return '已拒绝';
-      }
-    },
-  },
-];
+// export const userTenantColumns: BasicColumn[] = [
+//   {
+//     title: '用户账号',
+//     dataIndex: 'username',
+//     width: 120,
+//   },
+//   {
+//     title: '用户姓名',
+//     dataIndex: 'realname',
+//     width: 100,
+//   },
+//   {
+//     title: '头像',
+//     dataIndex: 'avatar',
+//     width: 120,
+//     customRender: render.renderAvatar,
+//   },
+//   {
+//     title: '手机号',
+//     dataIndex: 'phone',
+//     width: 100,
+//   },
+//   {
+//     title: '部门',
+//     width: 150,
+//     dataIndex: 'orgCodeTxt',
+//   },
+//   {
+//     title: '状态',
+//     dataIndex: 'status',
+//     width: 80,
+//     customRender: ({ text }) => {
+//       if (text === '1') {
+//         return '正常';
+//       } else if (text === '3') {
+//         return '审批中';
+//       } else {
+//         return '已拒绝';
+//       }
+//     },
+//   },
+// ];
 
 //用户租户搜索表单
-export const userTenantFormSchema: FormSchema[] = [
-  {
-    label: '账号',
-    field: 'username',
-    component: 'Input',
-    colProps: { span: 6 },
-  },
-  {
-    label: '名字',
-    field: 'realname',
-    component: 'Input',
-    colProps: { span: 6 },
-  },
-  {
-    label: '性别',
-    field: 'sex',
-    component: 'JDictSelectTag',
-    componentProps: {
-      dictCode: 'sex',
-      placeholder: '请选择性别',
-      stringToNumber: true,
-    },
-    colProps: { span: 6 },
-  },
-];
+// export const userTenantFormSchema: FormSchema[] = [
+//   {
+//     label: '账号',
+//     field: 'username',
+//     component: 'Input',
+//     colProps: { span: 6 },
+//   },
+//   {
+//     label: '名字',
+//     field: 'realname',
+//     component: 'Input',
+//     colProps: { span: 6 },
+//   },
+//   {
+//     label: '性别',
+//     field: 'sex',
+//     component: 'JDictSelectTag',
+//     componentProps: {
+//       dictCode: 'sex',
+//       placeholder: '请选择性别',
+//       stringToNumber: true,
+//     },
+//     colProps: { span: 6 },
+//   },
+// ];
