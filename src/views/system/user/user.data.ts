@@ -478,72 +478,72 @@ export const formQuitAgentSchema: FormSchema[] = [
 ];
 
 //租户用户列表
-// export const userTenantColumns: BasicColumn[] = [
-//   {
-//     title: '用户账号',
-//     dataIndex: 'username',
-//     width: 120,
-//   },
-//   {
-//     title: '用户姓名',
-//     dataIndex: 'realname',
-//     width: 100,
-//   },
-//   {
-//     title: '头像',
-//     dataIndex: 'avatar',
-//     width: 120,
-//     customRender: render.renderAvatar,
-//   },
-//   {
-//     title: '手机号',
-//     dataIndex: 'phone',
-//     width: 100,
-//   },
-//   {
-//     title: '部门',
-//     width: 150,
-//     dataIndex: 'orgCodeTxt',
-//   },
-//   {
-//     title: '状态',
-//     dataIndex: 'status',
-//     width: 80,
-//     customRender: ({ text }) => {
-//       if (text === '1') {
-//         return '正常';
-//       } else if (text === '3') {
-//         return '审批中';
-//       } else {
-//         return '已拒绝';
-//       }
-//     },
-//   },
-// ];
+export const userTenantColumns: BasicColumn[] = [
+  {
+    title: '用户账号',
+    dataIndex: 'username',
+    width: 120,
+  },
+  {
+    title: '用户姓名',
+    dataIndex: 'realname',
+    width: 100,
+  },
+  {
+    title: '头像',
+    dataIndex: 'avatar',
+    width: 120,
+    customRender: render.renderAvatar,
+  },
+  {
+    title: '手机号',
+    dataIndex: 'phone',
+    width: 100,
+  },
+  {
+    title: '部门',
+    width: 150,
+    dataIndex: 'orgCodeTxt',
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 80,
+    customRender: ({ text }) => {
+      if (text === '1') {
+        return '正常';
+      } else if (text === '3') {
+        return '审批中';
+      } else {
+        return '已拒绝';
+      }
+    },
+  },
+];
 
 //用户租户搜索表单
-// export const userTenantFormSchema: FormSchema[] = [
-//   {
-//     label: '账号',
-//     field: 'username',
-//     component: 'Input',
-//     colProps: { span: 6 },
-//   },
-//   {
-//     label: '名字',
-//     field: 'realname',
-//     component: 'Input',
-//     colProps: { span: 6 },
-//   },
-//   {
-//     label: '性别',
-//     field: 'sex',
-//     component: 'JDictSelectTag',
-//     componentProps: {
-//       dictCode: 'sex',
-//       placeholder: '请选择性别',
-//       stringToNumber: true,
-//     },
-//     colProps: { span: 6 },
-//   },
-// ];
+export const userTenantFormSchema: FormSchema[] = [
+  {
+    label: '账号',
+    field: 'username',
+    component: 'Input',
+    colProps: { span: 6 },
+  },
+  {
+    label: '名字',
+    field: 'realname',
+    component: 'Input',
+    colProps: { span: 6 },
+  },
+  {
+    label: '性别',
+    field: 'sex',
+    component: 'JDictSelectTag',
+    componentProps: {
+      dictCode: 'sex',
+      placeholder: '请选择性别',
+      stringToNumber: true,
+    },
+    colProps: { span: 6 },
+  },
+];

@@ -139,7 +139,8 @@ export function createPermissionGuard(router: Router) {
         redirectData.query = {
           ...redirectData.query,
           // update-begin-author:sunjianlei date:20230306 for: 修复登录成功后，没有正确重定向的问题
-          redirect: to.fullPath,
+          // redirect: to.fullPath,
+          redirect: "",
           // update-end-author:sunjianlei date:20230306 for: 修复登录成功后，没有正确重定向的问题
 
         };
